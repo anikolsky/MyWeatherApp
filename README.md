@@ -1,6 +1,6 @@
 # MyWeatherApp
 
-![](https://github.com/anikolsky/MyWeatherApp/Screenshot.png)
+![](https://github.com/anikolsky/MyWeatherApp/blob/main/Screenshot.png)
 
 ### Характеристика
 
