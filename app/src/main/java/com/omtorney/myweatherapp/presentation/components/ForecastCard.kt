@@ -8,17 +8,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.omtorney.myweatherapp.domain.model.Forecast
+import com.omtorney.myweatherapp.presentation.theme.MyWeatherAppTheme
 
 @Composable
 fun ForecastCard(
@@ -48,19 +51,15 @@ fun ForecastCard(
         ) {
             Column {
                 Text(
-                    text = "${forecast.avgTempC} °C",
+                    text = "${forecast.avgTempC} °C  •  ${forecast.conditionText}",
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = forecast.conditionText,
+                    text = "Wind speed ${forecast.maxWindKph} kph",
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = "Wind speed ${forecast.maxWindKph}",
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-                Text(
-                    text = "Humidity ${forecast.avgHumidity}",
+                    text = "Humidity ${forecast.avgHumidity.toInt()} %",
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
@@ -77,5 +76,24 @@ fun ForecastCard(
             )
         }
         Divider(color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f))
+    }
+}
+
+@Preview
+@Composable
+fun ForecastCardPreview() {
+    MyWeatherAppTheme {
+        Surface {
+            ForecastCard(
+                Forecast(
+                    "01.01.1970",
+                    "Rain",
+                    "",
+                    0.0,
+                    5.0,
+                    50.0
+                )
+            )
+        }
     }
 }
