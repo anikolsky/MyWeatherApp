@@ -31,11 +31,11 @@ class MainViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> _weatherState.update {
-                        it.copy(weatherInfo = result.data!!)
+                        it.copy(weatherInfo = result.data!!, isLoading = false)
                     }
 
                     is Resource.Error -> _weatherState.update {
-                        it.copy(errorMessage = result.message!!)
+                        it.copy(errorMessage = result.message!!, isLoading = false)
                     }
                 }
             }
