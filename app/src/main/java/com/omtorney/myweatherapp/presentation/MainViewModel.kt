@@ -20,22 +20,22 @@ class MainViewModel @Inject constructor(
     private var _weatherState = MutableStateFlow(WeatherState())
     val weatherState = _weatherState.asStateFlow()
 
-    private val query = "Moscow"
+    init { getList("Moscow") }
 
-    init {
+    private fun getList(query: String) {
         viewModelScope.launch {
             getWeather(query).collect { result ->
                 when (result) {
                     is Resource.Loading -> _weatherState.update {
-                        WeatherState(isLoading = true)
+                        it.copy(isLoading = true)
                     }
 
                     is Resource.Success -> _weatherState.update {
-                        WeatherState(weatherInfo = result.data!!)
+                        it.copy(weatherInfo = result.data!!)
                     }
 
                     is Resource.Error -> _weatherState.update {
-                        WeatherState(errorMessage = result.message!!)
+                        it.copy(errorMessage = result.message!!)
                     }
                 }
             }

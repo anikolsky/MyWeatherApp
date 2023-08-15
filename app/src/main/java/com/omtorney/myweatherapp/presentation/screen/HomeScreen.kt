@@ -33,7 +33,7 @@ fun HomeScreen(
         modifier = Modifier.padding(12.dp)
     ) {
         Text(
-            text = weatherState.weatherInfo.locationName,
+            text = weatherState.weatherInfo?.locationName ?: "n/a",
             style = MaterialTheme.typography.titleLarge
         )
         Row(
@@ -41,12 +41,12 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "${weatherState.weatherInfo.currentTempC} °C",
+                text = "${weatherState.weatherInfo?.currentTempC} °C",
                 style = MaterialTheme.typography.titleLarge
             )
             AsyncImage(
                 model = ImageRequest.Builder(context)
-                    .data("http:${weatherState.weatherInfo.currentConditionIcon}")
+                    .data("http:${weatherState.weatherInfo?.currentConditionIcon}")
                     .crossfade(300)
                     .scale(Scale.FILL)
                     .build(),
@@ -62,7 +62,7 @@ fun HomeScreen(
             modifier = Modifier.padding(vertical = 18.dp)
         )
         LazyColumn {
-            items(weatherState.weatherInfo.forecast) { forecast ->
+            items(weatherState.weatherInfo?.forecast ?: emptyList()) { forecast ->
                 ForecastCard(forecast)
             }
         }
